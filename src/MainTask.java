@@ -1,170 +1,11 @@
 import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Scanner;
-import java.lang.Math.*;
+
+import static Utils.InputUtils.*;
+import static Utils.OtherUtils.*;
 
 public class MainTask {
-
-    public static int inputUInt(String str) {
-        // Функция для ввода целочисленного положительного значения из консоли.
-        System.out.print(str);
-        Scanner in = new Scanner(System.in);
-        int number = in.nextInt();
-        if (number >= 0)
-            return number;
-        System.out.println("Число должно быть положительным.");
-        return inputUInt(str);
-    }
-
-    public static double inputDouble(String str) {
-        // Функция для ввода действительного значения из консоли.
-        System.out.print(str);
-        Scanner in = new Scanner(System.in);
-        double number = in.nextDouble();
-        return number;
-    }
-
-    public static int inputNaturalNumber(String str) {
-        // Функция для ввода натурального числа из консоли.
-        System.out.print(str);
-        Scanner in = new Scanner(System.in);
-        int number = in.nextInt();
-        if (number > 0)
-            return number;
-        System.out.println("Число должно быть > 0.");
-        return inputNaturalNumber(str);
-    }
-
-    public static double calculateRow(int n) {
-        // Расчет суммы членов ряда для задания 16.
-        return 1 / Math.pow(2, n) + 1 / Math.pow(3, n);
-    }
-
-    public static int sumOfSquares(int limit) {
-        // Сумма квадратов чисел от 2 до limit.
-        int sumOfSquares = 1;
-        for (int i = 2; i <= limit; i++)
-            sumOfSquares += i * i;
-        return sumOfSquares;
-    }
-
-    public static BigInteger productOfSquares(int limit) {
-        // Произведение квадратов чисел от 2 до limit.
-        BigInteger productOfSquares = BigInteger.valueOf(1);
-        for (int i = 2; i <= limit; i++)
-            productOfSquares = productOfSquares.multiply(BigInteger.valueOf(i * i));
-        return productOfSquares;
-    }
-
-    public static double func(double x) {
-        // Функция для задачи 13.
-        if (x > 2)
-            return x;
-        return -x;
-    }
-
-    public static double min(double x, double y) {
-        // Функция возвращает минимальное из двух чисел.
-        if (x < y)
-            return x;
-        return y;
-    }
-
-    public static double max(double x, double y) {
-        // Функция возвращает максимальное из двух чисел.
-        if (x > y)
-            return x;
-        return y;
-    }
-
-    public static boolean isATriangle(double angle1, double angle2)
-    {
-        // Функция возвращает истину или ложь (может ли треугольник существовать) на основании углов angle1 и angle2 в градусах.
-        if (angle1 > 0 && angle2 > 0)
-        {
-            double angle3 = 180 - angle1 - angle2;
-            if (angle3 > 0 && angle3 < 180)
-                return true;
-        }
-        return false;
-    }
-
-    public static boolean isRectangularTriangle(double angle1, double angle2, double angle3)
-    {
-        // Функция определяет является ли треугольник прямоугольным.
-        return angle1 == 90 || angle2 == 90 || angle3 == 90;
-    }
-
-    public static boolean isPointBelongs(double x, double y)
-    {
-        // Функция определяет принадлежит ли точка некоторой области.
-        if (x >= -4 && x <= 4 && y >= -3 && y <= 0)
-            return true;
-        if (x >= -2 && x <= 2 && y >= 0 && y <= 4)
-            return true;
-        return false;
-    }
-
-    public static boolean isPointsOnLine(double x1, double y1, double x2, double y2, double x3, double y3)
-    {
-        // Функция определяет принадлежат ли все точки одной прямой.
-        if (x1 != x2 || y1 != y2)
-        {
-            double deltaX = x2 - x1;
-            double deltaY = y2 - y1;
-            if ((y3 - y1) / deltaY == (x3 - x1) / deltaX)
-                return true;
-        }
-        else if (x1 != x3 || y1 != y3)
-            return true;
-        return false;
-    }
-
-    public static int sumOfNumbers(int limit)
-    {
-        // Возвращает сумму всех чисел от 1 до limit
-        int sum = 0;
-        for (int i = 1; i < limit; i++)
-            sum += i;
-        return sum;
-    }
-
-    public static double sumOfRow(double e)
-    {
-        // Cуммирование тех членов ряда, модуль которых больше или равен заданному е.
-        double sum = 0;
-        if (e > 0) {
-            int i = 1;
-            double sumCurrent = calculateRow(i++);
-            while (Math.abs(sumCurrent) >= e) {
-                sum += sumCurrent;
-                sumCurrent = calculateRow(i++);
-            }
-        }
-        return sum;
-    }
-
-    public static HashSet<Integer> commonDigitsOfNumbers(int a, int b)
-    {
-        // Функция возвращает множество общих чисел из двух чисел.
-        HashSet<Integer> common = new HashSet<>();
-        int i = a;
-        while (i != 0) {
-            int lastDigit = i % 10;
-            int j = b;
-            while (j != 0) {
-                //int currentDigit = j % 10;
-                if (lastDigit == j % 10) {
-                    common.add(lastDigit);
-                    break;
-                }
-                j /= 10;
-            }
-            i /= 10;
-        }
-        return common;
-    }
 
     public static void task1() {
         // Найдите значение функции: z = ( (a – 3 ) * b / 2) + c.
@@ -193,8 +34,8 @@ public class MainTask {
     }
 
     public static void task4() {
-        // Дано действительное число R вида nnn.ddd (три цифровых разряда в дробной и целой частях). Поменять местами
-        // дробную и целую части числа и вывести полученное значение числа.
+        /* Дано действительное число R вида nnn.ddd (три цифровых разряда в дробной и целой частях). Поменять местами
+           дробную и целую части числа и вывести полученное значение числа. */
         double r = inputDouble("Введите действительное значение r в формате nnn.ddd: ");
         int intPart = (int) r;
         int fractionalPart = (int) (Math.round((r - intPart) * 1000.0));
@@ -203,8 +44,8 @@ public class MainTask {
     }
 
     public static void task5() {
-        // Дано натуральное число Т, которое представляет длительность прошедшего времени в секундах. Вывести
-        // данное значение длительности в часах, минутах и секундах в следующей форме: ННч ММмин SSc.
+        /* Дано натуральное число Т, которое представляет длительность прошедшего времени в секундах. Вывести
+           данное значение длительности в часах, минутах и секундах в следующей форме: ННч ММмин SSc. */
         int time = inputNaturalNumber("Введите любое время в сек: ");
         int ss = time % 60;
         int mm = (time / 60) % 60;
@@ -213,8 +54,8 @@ public class MainTask {
     }
 
     public static void task6() {
-        // Для данной области составить линейную программу, которая печатает true, если точка с координатами (х, у)
-        // принадлежит закрашенной области, и false — в противном случае:
+        /* Для данной области составить линейную программу, которая печатает true, если точка с координатами (х, у)
+           принадлежит закрашенной области, и false — в противном случае. */
         double x = inputDouble("Введите действительное значение координаты x: ");
         double y = inputDouble("Введите действительное значение координаты y: ");
         System.out.println(isPointBelongs(x, y));
@@ -222,8 +63,8 @@ public class MainTask {
 
     public static void task7()
     {
-        // Даны два угла треугольника (в градусах). Определить, существует ли такой треугольник, и если да, то будет ли
-        // он прямоугольным.
+        /* Даны два угла треугольника (в градусах). Определить, существует ли такой треугольник, и если да, то будет ли
+           он прямоугольным. */
         double angle1 = inputDouble("Введите действительное значение угла1 треугольника: ");
         double angle2 = inputDouble("Введите действительное значение угла2 треугольника: ");
         if (isATriangle(angle1, angle2))
@@ -242,7 +83,7 @@ public class MainTask {
         double b = inputDouble("Введите действительное значение b: ");
         double c = inputDouble("Введите действительное значение c: ");
         double d = inputDouble("Введите действительное значение d: ");
-        double result = MainTask.max(MainTask.min(a, b), MainTask.min(c, d));
+        double result = max(min(a, b), min(c, d));
         System.out.println("Результат выражения: " + result);
     }
 
@@ -262,8 +103,8 @@ public class MainTask {
     }
 
     public static void task10() {
-        // Заданы размеры А, В прямоугольного отверстия и размеры х, у, z кирпича. Определить, пройдет ли кирпич через
-        // отверстие.
+        /* Заданы размеры А, В прямоугольного отверстия и размеры х, у, z кирпича. Определить, пройдет ли кирпич через
+           отверстие. */
         System.out.println("Введите размеры A и B прямоугольного отверстия.");
         double sizeA = inputDouble("Введите действительное значение размера A: ");
         double sizeB = inputDouble("Введите действительное значение размера B: ");
@@ -292,15 +133,15 @@ public class MainTask {
     }
 
     public static void task12() {
-        // Напишите программу, где пользователь вводит любое целое положительное число. А программа суммирует
-        // все числа от 1 до введенного пользователем числа.
+        /* Напишите программу, где пользователь вводит любое целое положительное число. А программа суммирует
+           все числа от 1 до введенного пользователем числа. */
         int limit = inputUInt("Введите целое положительное число: ");
         int sum = sumOfNumbers(limit);
         System.out.printf("Сумма всех чисел от 1 до %d = %d\n", limit, sum);
     }
 
     public static void task13() {
-        // Вычислить значения функции на отрезке [а,b] c шагом h:
+        // Вычислить значения функции на отрезке [а,b] c шагом h.
         double lowLimit = inputDouble("Введите нижнюю границу диапазона значений аргумента функции: ");
         double highLimit = inputDouble("Введите верхнюю границу диапазона значений аргумента функции: ");
         double step = inputDouble("Введите шаг, с которым будет меняться значение аргумента функции: ");
@@ -323,8 +164,8 @@ public class MainTask {
     }
 
     public static void task16() {
-        // Даны числовой ряд и некоторое число е. Найти сумму тех членов ряда, модуль которых больше или равен
-        // заданному е.
+        /* Даны числовой ряд и некоторое число е. Найти сумму тех членов ряда, модуль которых больше или равен
+           заданному е. */
         double e = inputDouble("Введите действительное число: ");
         double sum = sumOfRow(e);
         System.out.printf("Сумма членов ряда, модуль которых больше заданного числа = %f\n", sum);
@@ -337,8 +178,8 @@ public class MainTask {
     }
 
     public static void task18() {
-        // Для каждого натурального числа в промежутке от m до n вывести все делители, кроме единицы и самого числа.
-        // m и n вводятся с клавиатуры.
+        /* Для каждого натурального числа в промежутке от m до n вывести все делители, кроме единицы и самого числа.
+           m и n вводятся с клавиатуры. */
         int m = inputNaturalNumber("Введите натуральное число m: ");
         int n = inputNaturalNumber("Введите натуральное число n: ");
         System.out.println("Все делители чисел от m до n.");
@@ -369,9 +210,7 @@ public class MainTask {
     public static void main(String[] args) {
         boolean logic = true;
         while (logic) {
-            System.out.print("Введите номер 1 - 19 задачи для запуска решения или 0 для завершения процедуры выбора: ");
-            Scanner in = new Scanner(System.in);
-            int choice = in.nextInt();
+            int choice = inputUInt("Введите номер 1 - 19 задачи для запуска решения или 0 для завершения процедуры выбора: ");
             switch (choice) {
                 case 0: {
                     logic = false;
